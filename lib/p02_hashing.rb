@@ -1,3 +1,5 @@
+require 'byebug'
+
 class Fixnum
   # Fixnum#hash already implemented for you
 end
@@ -7,12 +9,10 @@ class Array
   def hash
     hash_values = []
 
-    return Time.now.to_i if empty?
+    return (10.hash + 1) if empty?
 
     self.each_with_index do |element, index|
-      if element.is_a?(Fixnum)
-        hash_values << (element + index).hash
-      end
+      hash_values << element.hash * (index + 1)
     end
 
     hash_values.inject(:+)
@@ -20,11 +20,31 @@ class Array
 end
 
 class String
+
   def hash
+    asci_sum = 0
+    string_array = []
+
+    self.each_char do |char|
+      string_array << char.ord
+    end
+
+    string_array.hash
   end
+
 end
 
 class Hash
+
   def hash
+    value = 0
+
+    hash_to_array = self.to_a.sort
+    hash_to_array.each do |hash_array|
+      value += hash_array.hash
+    end
+
+    value
   end
+
 end

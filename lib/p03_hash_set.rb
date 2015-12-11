@@ -9,12 +9,24 @@ class HashSet
   end
 
   def insert(key)
+    hash_value = key.hash
+    bucket_number = hash_value % num_buckets
+    @store[bucket_number] << key
+    @count += 1
+    resize! if count == num_buckets
   end
 
   def include?(key)
+    hash_value = key.hash
+    bucket_number = hash_value % num_buckets
+    @store[bucket_number].include?(key)
   end
 
   def remove(key)
+    hash_value = key.hash
+    bucket_number = hash_value % num_buckets
+    @store[bucket_number].delete(key)
+    @count -= 1
   end
 
   private
