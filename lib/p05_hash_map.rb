@@ -10,12 +10,19 @@ class HashMap
   end
 
   def include?(key)
+    hash_number = key.hash
+    @store[hash_number % num_buckets].get(key) ? true : false
   end
 
   def set(key, val)
+    hash_number = key.hash
+    @store[hash_number % num_buckets].insert(key, val)
   end
 
   def get(key)
+    # byebug
+    hash_number = key.hash
+    @store[hash_number % num_buckets].get(key)# if include?(key)
   end
 
   def delete(key)

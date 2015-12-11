@@ -35,13 +35,22 @@ class LinkedList
   end
 
   def get(key)
-    node = first
-    until node.key == key
-      return nil if node.next == nil
-      node = node.next
+    self.each do |node|
+      if node.key == key
+        return node.val
+      end
     end
-    node.val
+    nil
   end
+
+
+    # node = first
+    # until node.key == key
+    #   return nil if node.next == nil
+    #   node = node.next
+    # end
+    # node.val
+  # end
 
   def include?(key)
     get(key) ? true : false
@@ -76,11 +85,13 @@ class LinkedList
 
   def each(&prc)
     node = first
+    return self if node.nil?
     until node.next.nil?
       prc.call(node)
       node = node.next
     end
     prc.call(node)
+    self
   end
 
   # uncomment when you have `each` working and `Enumerable` included
