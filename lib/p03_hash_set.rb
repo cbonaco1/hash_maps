@@ -40,5 +40,15 @@ class HashSet
   end
 
   def resize!
+    # debugger
+    copy_store = @store
+    @store = Array.new(num_buckets * 2) { [] }
+    @count = 0
+
+    copy_store.each do |bucket|
+      bucket.each do |element|
+        self.insert(element)
+      end
+    end
   end
 end

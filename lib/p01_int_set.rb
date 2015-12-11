@@ -101,10 +101,10 @@ class ResizingIntSet
   end
 
   def resize!
-
     old_store = @store
     @store = Array.new(num_buckets * 2) { [] }
-  
+    @count = 0
+
     old_store.each do |bucket|
       bucket.each do |num|
         self.insert(num)
